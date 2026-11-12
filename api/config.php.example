@@ -1,0 +1,12 @@
+<?php
+/**
+ * Copy this file to config.php and set values for your local MySQL server.
+ * Never commit config.php: it contains your database password.
+ */
+return [
+    'host' => '127.0.0.1',
+    'port' => 3306,
+    'database' => 'chhaly_portfolio',
+    'username' => 'root',
+    'password' => '', // Common XAMPP local default; change if yours differs.
+];
