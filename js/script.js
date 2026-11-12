@@ -225,6 +225,18 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   document.querySelectorAll('.video-card').forEach(card => {
+    const previewVideo = card.querySelector('video.video-preview');
+    if (previewVideo) {
+      card.addEventListener('mouseenter', () => {
+        const playPromise = previewVideo.play();
+        if (playPromise !== undefined) playPromise.catch(() => {});
+      });
+      card.addEventListener('mouseleave', () => {
+        previewVideo.pause();
+        previewVideo.currentTime = 0;
+      });
+    }
+
     card.addEventListener('click', () => {
       const btn = card.querySelector('.play-button');
       const src = card.dataset.videoSrc || btn?.dataset.videoSrc;
@@ -236,7 +248,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.play-button').forEach(button => {
     button.addEventListener('click', event => {
       event.stopPropagation();
-      openVideo(button.dataset.videoSrc, button.dataset.videoTitle);
+      const card = button.closest('.video-card');
+      const src = card?.dataset.videoSrc || button.dataset.videoSrc;
+      const title = card?.dataset.videoTitle || button.dataset.videoTitle;
+      openVideo(src, title);
     });
   });
 
