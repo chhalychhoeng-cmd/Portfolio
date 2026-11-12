@@ -249,34 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  const cvUploadButton = document.querySelector('#cv-upload-button');
-  const cvUploadInput = document.querySelector('#cv-upload-input');
-  const cvUploadStatus = document.querySelector('#cv-upload-status');
-  let uploadedCvUrl;
-
-  if (cvUploadButton && cvUploadInput && cvUploadStatus) {
-    cvUploadButton.addEventListener('click', () => cvUploadInput.click());
-    cvUploadInput.addEventListener('change', () => {
-      const [file] = cvUploadInput.files;
-      if (!file) return;
-
-      if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-        cvUploadStatus.textContent = 'Please choose a PDF file.';
-        cvUploadInput.value = '';
-        return;
-      }
-
-      if (uploadedCvUrl) URL.revokeObjectURL(uploadedCvUrl);
-      uploadedCvUrl = URL.createObjectURL(file);
-      document.querySelectorAll('[data-cv-download]').forEach(link => {
-        link.href = uploadedCvUrl;
-        link.download = file.name;
-      });
-      cvUploadStatus.textContent = `${file.name} is ready to download in this browser session.`;
-    });
-    window.addEventListener('beforeunload', () => { if (uploadedCvUrl) URL.revokeObjectURL(uploadedCvUrl); });
-  }
-
   const contactForm = document.querySelector('.contact-form');
   const contactStatus = contactForm?.querySelector('.form-status');
   if (contactForm && contactStatus) {
