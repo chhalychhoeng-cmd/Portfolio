@@ -264,6 +264,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  const photoModal = document.querySelector('#photography-modal');
+  const openPhotoBtn = document.querySelector('#open-photography-btn');
+  if (photoModal && openPhotoBtn) {
+    openPhotoBtn.addEventListener('click', () => {
+      photoModal.showModal();
+    });
+  }
+
+  document.querySelectorAll('.photo-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const src = item.dataset.photo || item.querySelector('img')?.getAttribute('src');
+      const caption = item.dataset.caption || 'Photography Work';
+      if (src) openProject(caption, src);
+    });
+  });
+
   const contactForm = document.querySelector('.contact-form');
   const contactStatus = contactForm?.querySelector('.form-status');
   if (contactForm && contactStatus) {
